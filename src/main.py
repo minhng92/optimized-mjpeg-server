@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 from importlib import import_module
 import os, time
 from flask import Flask, Response
@@ -74,7 +74,7 @@ def manage_image_files(image_dir):
 
 if __name__ == '__main__':
     host = '0.0.0.0'
-    port = 5050
+    port = 5051
 
     try:
         # docs: https://docs.python.org/3/library/_thread.html
