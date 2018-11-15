@@ -1,0 +1,113 @@
+img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.border {
+border-style: solid;
+border-color: #373a3c;
+border-width: 1px;
+}
+
+.height_100 {
+height: 100%;
+}
+
+.width_100 {
+width: 100%;
+}
+
+.width_50 {
+width: 50%;
+}
+
+.height_50 {
+height: 50%;
+}
+
+.padding_0 {
+padding: 0px;
+}
+
+.margin_0 {
+margin: 0;
+}
+
+.overflow_scroll {
+    overflow: scroll;
+}
+
+/*
+"camera_color" and "camera_showing_color" are being used in "cam_modal.js"
+Do not change the name of this class if you don't know what you are doing.
+*/
+
+.camera_color {
+    color: #f0f0f0;
+}
+
+.camera_showing_color {
+    color: #ffff00;
+}
+
+html,
+body {
+height: 100%;
+padding: 0;
+margin: 0;
+}
+
+div {
+float: left;
+}
+
+#cam_block_1 {
+background: #DDD;
+}
+
+#cam_block_2 {
+background: #AAA;
+}
+
+#cam_block_3 {
+background: #777;
+}
+
+#cam_block_4 {
+background: #444;
+}
+
+.cam_block {
+    float: left;
+}
+
+.camera_row {
+cursor: pointer;
+user-select: none;
+-moz-user-select: none;
+}
+
+.cursor_pointer {
+    cursor: pointer;
+}
+
+#modal_header {
+    padding-left: 5px;
+}
+
+.header_video {
+    color: #f0f0f0;
+    background-color: #55373a3c;
+
+    -webkit-border-top-left-radius:6px;
+    -webkit-border-top-right-radius:6px;
+    -moz-border-radius-topleft:6px;
+    -moz-border-radius-topright:6px;
+    -moz-border-radius-bottomleft:6px;
+    -moz-border-radius-bottomright:6px;
+    border-top-left-radius:6px;
+    border-top-right-radius:6px;
+    border-bottom-left-radius:6px;
+    border-bottom-right-radius:6px;
+}

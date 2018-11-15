@@ -1,0 +1,80 @@
+<html>
+	<head>
+		<title>Live Views</title>
+		<link rel="stylesheet" type="text/css" href="assets/bootstrap-4.0.0/css/bootstrap.min.css">
+		
+		<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+		<link rel="stylesheet" type="text/css" href="assets/css/live_grid_cam_modal.css">
+		<link rel="stylesheet" type="text/css" href="assets/css/live_grid_style.css">
+		<script
+			src="https://code.jquery.com/jquery-1.9.1.min.js"
+			integrity="sha256-wS9gmOZBqsqWxgIVgA8Y9WcQOa7PgSIX+rPA0VL2rbQ="
+			crossorigin="anonymous"></script>
+		<!--<script src="assets/js/jquery-1.9.1.min.js"></script>-->
+		<!--<script src="assets/js/bootstrap.js"></script>-->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+		<script src="assets/js/live_grid_cam_modal.js"></script>
+		<script src="assets/js/live_grid_scripts.js"></script>
+		<script src="assets/js/jquery.fullscreen.min.js"></script>
+	</head>
+	<body>
+		<div id="cam_container" class="container-fluid height_100 width_100 padding_0">
+			<div class="row height_100 width_100 margin_0">
+				<div class="col-md-2 height_100 overflow_scroll" style="background-color: #373a3c; color: #f0f0f0; padding: 10px;">
+					<!--
+					<div class="camera_row" title="mjpeg_url">
+						<i class="fa fa-video-camera camera_color" aria-hidden="true"></i> &nbsp; Camera Name
+					</div>
+					-->
+					CAMERA_LINES_REPLACED_BY_PYTHON_CODE
+				</div>
+				<div class="col-md-10 padding_0 height_100">
+					<div class="row width_100 height_100 margin_0">
+						<div class="col-md-6 border width_50 height_100 padding_0">
+							<!-- do not change "cam_block" class name, it will break other parts of this template -->
+							<!-- cam_block_id is hard code -->
+							<div id="cam_block_1" class="border width_100 height_50 cam_block" data-idx="1">
+								<span id="header_video1" class="header_video" style="position: absolute; top: 0%; left: 0%; padding: 5px;">Stream 1</span>
+								<img id="video1" class="width_100" />
+								<!--<button class="btn btn-default" style="position: absolute; left: 1%; bottom: 51%;" onclick="SwitchStreamOriginAndProcessed('video1')"><i class="fa fa-exchange" aria-hidden="true"></i></button>-->
+								<button class="btn btn-default" style="position: absolute; right: 1%; bottom: 51%;" onclick="ClickFullScreenById('video1')"><i class="fa fa-arrows-alt" aria-hidden="true"></i></button>
+							</div>
+							<div id="cam_block_3" class="border width_100 height_50 cam_block" data-idx="2">
+								<span id="header_video3" class="header_video" style="position: absolute; top: 50%; left: 0%; padding: 5px;">Stream 3</span>
+								<img id="video3" class="width_100" />
+								<!--<button class="btn btn-default" style="position: absolute; left: 1%; bottom: 1%;" onclick="SwitchStreamOriginAndProcessed('video3')"><i class="fa fa-exchange" aria-hidden="true"></i></button>-->
+								<button class="btn btn-default" style="position: absolute; right: 1%; bottom: 1%;" onclick="ClickFullScreenById('video3')"><i class="fa fa-arrows-alt" aria-hidden="true"></i></button>
+							</div>
+						</div>
+						<div class="col-md-6 border width_50 height_100 padding_0">
+							<div id="cam_block_2" class="border width_100 height_50 cam_block" data-idx="3">
+								<span id="header_video2" class="header_video" style="position: absolute; top: 0%; left: 0%; padding: 5px;">Stream 2</span>
+								<img id="video2" class="width_100" />
+								<!--<button class="btn btn-default" style="position: absolute; left: 1%; bottom: 51%;" onclick="SwitchStreamOriginAndProcessed('video2')"><i class="fa fa-exchange" aria-hidden="true"></i></button>-->
+								<button class="btn btn-default" style="position: absolute; right: 1%; bottom: 51%;" onclick="ClickFullScreenById('video2')"><i class="fa fa-arrows-alt" aria-hidden="true"></i></button>
+							</div>
+							<div id="cam_block_4" class="border width_100 height_50 cam_block" data-idx="4">
+								<span id="header_video4" class="header_video" style="position: absolute; top: 50%; left: 0%; padding: 5px;">Stream 4</span>
+								<img id="video4" class="width_100" />
+								<!--<button class="btn btn-default" style="position: absolute; left: 1%; bottom: 1%;" onclick="SwitchStreamOriginAndProcessed('video4')"><i class="fa fa-exchange" aria-hidden="true"></i></button>-->
+								<button class="btn btn-default" style="position: absolute; right: 1%; bottom: 1%;" onclick="ClickFullScreenById('video4')"><i class="fa fa-arrows-alt" aria-hidden="true"></i></button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div id="modal">
+			<div class="insertscreen">
+				<div id="modal_header"></div>
+				<br/>
+				<img id="current_cam" src="default.jpg" height="80%" />
+				<span class="modal_close cursor_pointer">
+					<i class="fas fa-times camera_color fa-lg" aria-hidden="true"></i>
+				</span>
+			</div>
+		</div>
+	</body>
+</html>
