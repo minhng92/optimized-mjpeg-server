@@ -3,7 +3,7 @@ mjpeg:
   port: 5051
 
 streams:
-  is_use: True
+  is_use: False
   stream_list: '
 Camera_0,rtsp://172.28.182.204:80/live/camera_1
 Camera_1,rtsp://172.28.182.204:80/live/camera_5
@@ -12,5 +12,5 @@ Camera_3,rtsp://172.28.182.204:80/live/camera_15
 Camera_4,rtsp://172.28.182.204:80/live/camera_20
 '
 
-#app:
-#  logfile: 'mjpeg.log'
+app:
+  logfile: 'mjpeg.log'

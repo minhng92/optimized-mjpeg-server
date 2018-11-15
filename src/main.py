@@ -99,7 +99,8 @@ def read_camera(camera_folder, camera_url):
     pass
 
 if __name__ == '__main__':
-    yaml_path = 'config.yaml'
+    yaml_path = os.path.join(CURRENT_FOLDER, 'config.yaml')
+    print('yaml_path:', yaml_path)
     assert os.path.isfile(yaml_path)
 
     with open(yaml_path) as f:
@@ -109,7 +110,7 @@ if __name__ == '__main__':
     port = data_dict['mjpeg']['port']
 
     if 'app' in data_dict and 'logfile' in data_dict['app']:
-        logfile = data_dict['app']['logfile']
+        logfile = os.path.join(CURRENT_FOLDER, data_dict['app']['logfile']) 
         print('Logfile @', os.path.abspath(logfile))
         sys.stdout = open(logfile, 'a')
     print('[%s] Successfully read yaml config @' % get_time(), os.path.abspath(yaml_path))
@@ -163,7 +164,7 @@ if __name__ == '__main__':
             html_cam_line = """
                 <div class="camera_row" title="%(mjpeg_url)s">
                     <i class="fa fa-video-camera camera_color" aria-hidden="true"></i> &nbsp; %(camera_name)s
-                </div>
+                </div><br/>
             """ % {
                 'mjpeg_url': 'http://%s:%d/mjpeg/%s' % (host, int(port), camera_url),
                 'camera_name': camera_name,
