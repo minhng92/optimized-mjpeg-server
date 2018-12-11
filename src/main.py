@@ -26,14 +26,13 @@ class GVCamManager():
         if not os.path.isdir(cam_folder): # cam folder is not existed
             return None
 
-        file_names = [f for f in os.listdir(cam_folder) if os.path.isfile(os.path.join(cam_folder, f))]
-        file_names = sorted(file_names)
+        file_names = [os.path.join(cam_folder, f) for f in os.listdir(cam_folder) if os.path.isfile(os.path.join(cam_folder, f))]
+        file_names.sort(key=os.path.getmtime)
 
-        if len(file_names) == 0:
+        if len(file_names) == 0 or len(file_names) == 1:
             return None
 
-        latest_img_path = os.path.join(cam_folder, file_names[-1])
-
+        latest_img_path = os.path.join(cam_folder, file_names[-2])
         f = open(latest_img_path, 'rb').read()
         return f
 
@@ -45,7 +44,6 @@ def get_image_loop(cam_id):
         frame = open(DEFAULT_NO_IMAGE_FILE_PATH, 'rb').read() if frame is None else frame
 
         if len(frame) == 0: # invalid image
-            time.sleep(0.1)
             continue
 
         yield (b'--frame\r\n'

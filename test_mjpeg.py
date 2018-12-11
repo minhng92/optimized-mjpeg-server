@@ -14,4 +14,4 @@ if __name__ == "__main__":
         im = Image.fromarray(imarray.astype('uint8')).convert('RGB')
         im.save(os.path.join(out_folder, img_name))
         print('Generated image @', img_name)
-        time.sleep(1)
+        time.sleep(0.04)

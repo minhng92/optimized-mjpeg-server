@@ -1,6 +1,6 @@
 mjpeg:
   host: '0.0.0.0'
-  port: 5051
+  port: 5052
 
 streams:
   is_use: False
@@ -12,5 +12,5 @@ Camera_3,rtsp://172.28.182.204:80/live/camera_15
 Camera_4,rtsp://172.28.182.204:80/live/camera_20
 '
 
-app:
-  logfile: 'mjpeg.log'
+#app:
+#  logfile: 'mjpeg.log'
