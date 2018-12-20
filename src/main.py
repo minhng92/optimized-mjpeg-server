@@ -27,17 +27,23 @@ class GVCamManager():
             return None
 
         file_names = [os.path.join(cam_folder, f) for f in os.listdir(cam_folder) if os.path.isfile(os.path.join(cam_folder, f))]
-        file_names.sort(key=os.path.getmtime)
+        ###file_names.sort(key=os.path.getmtime)
+        file_names = sorted(file_names)
 
         if len(file_names) == 0 or len(file_names) == 1:
             return None
 
-        latest_img_path = os.path.join(cam_folder, file_names[-2])
-        f = open(latest_img_path, 'rb').read()
-        return f
+        ##latest_img_path = os.path.join(cam_folder, file_names[-2])
+        latest_img_path = file_names[-2]
+
+        with open(latest_img_path, 'rb') as f:
+            return f.read()
+        return None
 
 img_manager = GVCamManager
 def get_image_loop(cam_id):
+    is_first = True
+    then = time.time()
     while True:
         time.sleep(0.03) # 30ms --> maximum performance: 30 FPS
         frame = img_manager.get_latest_frame(cam_id)
@@ -46,14 +52,27 @@ def get_image_loop(cam_id):
         if len(frame) == 0: # invalid image
             continue
 
-        yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+        if is_first:
+            is_first = False
+            yield(b'\r\n--frame\r\n')
+            continue
+
+        now = time.time()
+        diff = now-then
+
+        yield (b'Content-Type: image/jpeg\r\nContent-Length: %d\r\n' % (len(frame)) +
+               b'X-Timestamp: %d.%06d\r\n\r\n' % (int(diff), int((diff - int(diff))*1000000)) + frame + b'\r\n--frame\r\n')
     
 @app.route('/mjpeg/<cam_id>', methods=['GET'])
 def mjpeg(cam_id):
     """Video streaming route. Put this in the src attribute of an img tag."""
-    return Response(get_image_loop(cam_id),
-                    mimetype='multipart/x-mixed-replace; boundary=frame')
+    resp = Response(get_image_loop(cam_id), mimetype='multipart/x-mixed-replace;boundary=frame')
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    resp.headers['Server'] = 'MJPG-Streamer/0.2'
+    resp.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, pre-check=0, post-check=0, max-age=0'
+    resp.headers['Pragma'] = 'no-cache'
+    resp.headers['Expires'] = 'Mon, 3 Jan 2000 12:34:56 GMT'
+    return resp
 
 def manage_image_files(image_dir):
     print('[%s][THREAD] Started thread "manage_image_files()" for auto-cleaning images' % get_time())
@@ -64,6 +83,10 @@ def manage_image_files(image_dir):
                 folder = os.path.join(root, d)
                 file_names = [os.path.join(folder, f) for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f))]
                 file_names = sorted(file_names)
+
+                #file_names = [os.path.join(folder, f) for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f))]
+                #file_names.sort(key=os.path.getmtime)
+
                 if len(file_names) > 2*NUM_MAX_IMAGES_PER_CAM_FOLDER:
                     del_list = file_names[:NUM_MAX_IMAGES_PER_CAM_FOLDER]
                     for img_del_path in del_list:
