@@ -27,8 +27,8 @@ class GVCamManager():
             return None
 
         file_names = [os.path.join(cam_folder, f) for f in os.listdir(cam_folder) if os.path.isfile(os.path.join(cam_folder, f))]
-        ###file_names.sort(key=os.path.getmtime)
-        file_names = sorted(file_names)
+        file_names.sort(key=os.path.getmtime)
+        #file_names = sorted(file_names)
 
         if len(file_names) == 0 or len(file_names) == 1:
             return None
@@ -81,11 +81,12 @@ def manage_image_files(image_dir):
         for root, dirnames, filenames in os.walk(image_dir):
             for d in dirnames:
                 folder = os.path.join(root, d)
-                file_names = [os.path.join(folder, f) for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f))]
-                file_names = sorted(file_names)
-
+                
                 #file_names = [os.path.join(folder, f) for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f))]
-                #file_names.sort(key=os.path.getmtime)
+                #file_names = sorted(file_names)
+
+                file_names = [os.path.join(folder, f) for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f))]
+                file_names.sort(key=os.path.getmtime)
 
                 if len(file_names) > 2*NUM_MAX_IMAGES_PER_CAM_FOLDER:
                     del_list = file_names[:NUM_MAX_IMAGES_PER_CAM_FOLDER]
