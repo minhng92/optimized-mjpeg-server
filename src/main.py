@@ -27,7 +27,9 @@ class GVCamManager():
             return None
 
         file_names = [os.path.join(cam_folder, f) for f in os.listdir(cam_folder) if os.path.isfile(os.path.join(cam_folder, f))]
-        file_names.sort(key=os.path.getmtime)
+        f = lambda x: int(x.split('_')[-1].split('.')[-2])
+        file_names.sort(key=f)
+        #file_names.sort(key=os.path.getmtime)
         #file_names = sorted(file_names)
 
         if len(file_names) == 0 or len(file_names) == 1:
@@ -86,7 +88,9 @@ def manage_image_files(image_dir):
                 #file_names = sorted(file_names)
 
                 file_names = [os.path.join(folder, f) for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f))]
-                file_names.sort(key=os.path.getmtime)
+                f = lambda x: int(x.split('_')[-1].split('.')[-2])
+                file_names.sort(key=f)
+                #file_names.sort(key=os.path.getmtime)
 
                 if len(file_names) > 2*NUM_MAX_IMAGES_PER_CAM_FOLDER:
                     del_list = file_names[:NUM_MAX_IMAGES_PER_CAM_FOLDER]
@@ -130,6 +134,9 @@ if __name__ == '__main__':
 
     host = data_dict['mjpeg']['host']
     port = data_dict['mjpeg']['port']
+
+    if 'images' in data_dict['mjpeg']:
+        IMAGE_FOLDER = data_dict['mjpeg']['images']
 
     if 'app' in data_dict and 'logfile' in data_dict['app']:
         logfile = os.path.join(CURRENT_FOLDER, data_dict['app']['logfile']) 
